@@ -10,5 +10,6 @@ function ErrorRequestHandler(err, req, res, next) {
             message: "Internal server error"
         });
     }
+    next();
 }
 exports.ErrorRequestHandler = ErrorRequestHandler;
