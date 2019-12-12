@@ -11,12 +11,18 @@ module.exports = {
                 })
     },
     async call(req, res) {
-        const token = config.token;
-        return TotalVoiceService.criarConferencia(req.body.firstnumber, req.body.lastname, token)
+        try {
+            const token = config.token;
+            if((!req.body.firstnumber) && (!req.body.lastname)) return res.status(401).json({message: 'falta de parametros'});
+
+            return TotalVoiceService.criarConferencia(req.body.firstnumber, req.body.lastnumber, token)
                 .then((res) => {
                     return res.status(200).json({'message': 'Criando ligação'})
                 }).catch(() => {
                     return res.status(500);
                 })
+        }catch {
+            return res.status(500);
+        }
     }
 }
